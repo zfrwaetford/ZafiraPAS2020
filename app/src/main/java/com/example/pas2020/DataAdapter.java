@@ -20,7 +20,7 @@ import com.bumptech.glide.request.target.Target;
 
 import java.util.ArrayList;
 
-public class DataAdapter extends RecyclerView.Adapter<DataAdapter.DatakuViewHolder>{
+public class DataAdapter extends RecyclerView.Adapter<DataAdapter.DatakuViewHolder> {
     private ArrayList<Model> dataList;
     private Callback callback;
     View viewku;
@@ -47,12 +47,12 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.DatakuViewHold
 
     @Override
     public void onBindViewHolder(final DatakuViewHolder holder, final int position) {
-        holder.txtNama.setText(dataList.get(position).getStrTeam());
-        holder.txtNpm.setText(dataList.get(position).getIntFormedYear());
-        Log.d("makananku", "onBindViewHolder: "+dataList.get(position).getStrStadiumThumb());
+        holder.txtNama.setText(dataList.get(position).getTeam_name());
+        holder.txtNpm.setText(dataList.get(position).getStadium());
+        Log.d("makananku", "onBindViewHolder: "+dataList.get(position).getBadge_path());
         //pakai glide karena untuk nampilkan data gambar dari URL / permission / graddle
         Glide.with(holder.itemView)
-                .load(dataList.get(position).getStrStadiumThumb())
+                .load(dataList.get(position).getBadge_path())
                 //.override(Target.SIZE_ORIGINAL)
                 .apply(new RequestOptions().override(600, 200))
                 .placeholder(R.mipmap.ic_launcher)
@@ -97,6 +97,7 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.DatakuViewHold
         }
 
     }
+
     private final MenuItem.OnMenuItemClickListener onEditMenu = new MenuItem.OnMenuItemClickListener() {
         @Override
         public boolean onMenuItemClick(MenuItem item) {

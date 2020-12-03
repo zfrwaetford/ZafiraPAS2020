@@ -13,8 +13,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
 import com.androidnetworking.AndroidNetworking;
+import com.androidnetworking.common.ANRequest;
 import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
@@ -26,6 +26,8 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 public class ListData extends AppCompatActivity {
+
+
     TextView tvnodata;
     ProgressDialog dialog;
     RecyclerView recyclerView;
@@ -42,45 +44,14 @@ public class ListData extends AppCompatActivity {
         tvnodata = (TextView) findViewById(R.id.tvnodata);
         tvnodata.setVisibility(View.GONE);
         recyclerView.setVisibility(View.VISIBLE);
-        //addData();
         addDataOnline();
-    }
-    void addData() {
-        //offline, isi data offline dulu
-        DataArrayList = new ArrayList<>();
-        Model data1 = new Model();
-        data1.setStrTeam("Nama Tim");
-        data1.setStrStadiumThumb("https://www.thesportsdb.com/images/media/team/stadium/w1anwa1588432105.jpg");
-        data1.setStrStadiumDescription("Deskripsi Stadium");
-        data1.setIntFormedYear("1892");
-        DataArrayList.add(data1);
-
-
-        adapter = new DataAdapter(DataArrayList, new DataAdapter.Callback() {
-            @Override
-            public void onClick(int position) {
-
-            }
-
-            @Override
-            public void test() {
-
-            }
-        });
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(ListData.this);
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(adapter);
-
-        //get data online
-
-
     }
 
     void addDataOnline(){
-        //kasih loading
-        dialog.setMessage("Loading...");
+        //Loading Screen
+        dialog.setMessage("Processing Data");
         dialog.show();
-        // background process
+        //Bacjground Process
         AndroidNetworking.get("https://www.thesportsdb.com/api/v1/json/1/search_all_teams.php?l=English%20Premier%20League")
                 .setTag("test")
                 .setPriority(Priority.LOW)
@@ -88,36 +59,40 @@ public class ListData extends AppCompatActivity {
                 .getAsJSONObject(new JSONObjectRequestListener() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        // do anything with response
-                        Log.d("hasiljson", "onResponse: " + response.toString());
-                        //jika sudah berhasil debugm lanjutkan code dibawah ini
+                        //Do Anything With Response
+                        Log.d("hasiljson","onResponse: " + response.toString());
                         DataArrayList = new ArrayList<>();
                         Model modelku;
                         try {
                             Log.d("hasiljson", "onResponse: " + response.toString());
-                            JSONArray jsonArray = response.getJSONArray("results");
+                            JSONArray jsonArray = response.getJSONArray("teams");
                             Log.d("hasiljson2", "onResponse: " + jsonArray.toString());
                             for (int i = 0; i < jsonArray.length(); i++) {
                                 modelku = new Model();
                                 JSONObject jsonObject = jsonArray.getJSONObject(i);
-                                modelku.setIdTeam(jsonObject.getInt("idTeam"));
-                                modelku.setStrTeam(jsonObject.getString("strTeam"));
-                                modelku.setStrStadiumDescription(jsonObject.getString("strStadiumDescription"));
-                                modelku.setIntFormedYear(jsonObject.getString("intFormedYear"));
-                                modelku.setStrStadiumThumb("https://www.thesportsdb.com/images/media/team/stadium"+jsonObject.getString("poster_path"));
+                                modelku.setTeam_name(jsonObject.getString("strTeam"));
+                                modelku.setAlternate_name(jsonObject.getString("strAlternate"));
+                                modelku.setLeague(jsonObject.getString("strLeague"));
+                                modelku.setStadium(jsonObject.getString("strStadium"));
+                                modelku.setBadge_path(jsonObject.getString("strTeamBadge"));
+                                modelku.setDescription(jsonObject.getString("strDescriptionEN"));
+                                modelku.setStadium_location(jsonObject.getString("strStadiumLocation"));
                                 DataArrayList.add(modelku);
                             }
-                            //untuk handle click
+                            //Handle Click
                             adapter = new DataAdapter(DataArrayList, new DataAdapter.Callback() {
                                 @Override
                                 public void onClick(int position) {
-                                    Model movie = DataArrayList.get(position);
+                                    Model team = DataArrayList.get(position);
                                     Intent intent = new Intent(getApplicationContext(), DetailMovie.class);
-                                    intent.putExtra("id",movie.idTeam);
-                                    intent.putExtra("judul",movie.strTeam);
-                                    intent.putExtra("date",movie.intFormedYear);
-                                    intent.putExtra("deskripsi",movie.strStadiumDescription);
-                                    intent.putExtra("path",movie.strStadiumThumb);
+                                    intent.putExtra("id",team.id);
+                                    intent.putExtra("team",team.strTeam);
+                                    intent.putExtra("alternate",team.strAlternate);
+                                    intent.putExtra("league",team.strLeague);
+                                    intent.putExtra("stadium",team.strStadium);
+                                    intent.putExtra("badge",team.strTeamBadge);
+                                    intent.putExtra("description",team.strDescriptionEN);
+                                    intent.putExtra("location",team.strStadiumLocation);
                                     startActivity(intent);
                                     Toast.makeText(ListData.this, ""+position, Toast.LENGTH_SHORT).show();
                                 }
@@ -143,14 +118,13 @@ public class ListData extends AppCompatActivity {
                     }
 
                     @Override
-                    public void onError(ANError error) {
-                        // handle error
-                        Log.d("errorku", "onError errorCode : " + error.getErrorCode());
-                        Log.d("errorku", "onError errorBody : " + error.getErrorBody());
-                        Log.d("errorku", "onError errorDetail : " + error.getErrorDetail());
+                    public void onError(ANError anError) {
+                        //Handle Error
+                        Log.d("errorku","onError errorCode : " + anError.getErrorCode());
+                        Log.d("errorku","onError errorBody : " + anError.getErrorBody());
+                        Log.d("errorku","onError errorDetail : " + anError.getErrorDetail());
                     }
                 });
     }
-
 }
 

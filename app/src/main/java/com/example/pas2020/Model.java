@@ -1,52 +1,76 @@
 package com.example.pas2020;
 
 public class Model {
-    //https://image.tmdb.org/t/p/w500/k68nPLbIST6NP96JmTxmZijEvCA.jpg
     String strTeam;
-    String intFormedYear;
-    String strStadiumThumb;
-    String strStadiumDescription;
-    int idTeam;
+    String strAlternate;
+    String strLeague;
+    String strStadium;
+    String strTeamBadge;
+    String strDescriptionEN;
+    String strStadiumLocation;
+    int id;
 
-    public int getIdTeam() {
-        return idTeam;
+    public Integer getId() {
+        return id;
     }
 
-    public void setIdTeam(int idTeam) {
-        this.idTeam = idTeam;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public String getStrTeam() {
+    public String getTeam_name() {
         return strTeam;
     }
 
-    public void setStrTeam(String strTeam) {
+    public void setTeam_name(String strTeam) {
         this.strTeam = strTeam;
     }
 
-    public String getIntFormedYear() {
-        return intFormedYear;
+    public String getAlternate_name() {
+        return strAlternate;
     }
 
-    public void setIntFormedYear(String intFormedYear) {
-        this.intFormedYear = intFormedYear;
+    public void setAlternate_name(String strAlternate) {
+        this.strAlternate = strAlternate;
     }
 
-    public String getStrStadiumThumb() {
-        return strStadiumThumb;
+    public String getLeague() {
+        return strLeague;
     }
 
-    public void setStrStadiumThumb(String strStadiumThumb) {
-        this.strStadiumThumb = strStadiumThumb;
+    public void setLeague(String strLeague) {
+        this.strLeague = strLeague;
     }
 
-    public String getStrStadiumDescription() {
-        return strStadiumDescription;
+    public String getStadium() {
+        return strStadium;
     }
 
-    public void setStrStadiumDescription(String strStadiumDescription) {
-        this.strStadiumDescription = strStadiumDescription;
+    public void setStadium(String strStadium) {
+        this.strStadium = strStadium;
     }
 
+    public String getBadge_path() {
+        return strTeamBadge;
+    }
+
+    public void setBadge_path(String strTeamBadge) {
+        this.strTeamBadge = strTeamBadge;
+    }
+
+    public String getDescription() {
+        return strDescriptionEN;
+    }
+
+    public void setDescription(String strDescriptionEN) {
+        this.strDescriptionEN = strDescriptionEN;
+    }
+
+    public String getStadium_location() {
+        return strStadiumLocation;
+    }
+
+    public void setStadium_location(String strStadiumLocation) {
+        this.strStadiumLocation = strStadiumLocation;
+    }
 }
-
