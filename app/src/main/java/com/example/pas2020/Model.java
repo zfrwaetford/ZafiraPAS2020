@@ -1,76 +1,55 @@
 package com.example.pas2020;
 
-public class Model {
+import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
+
+public class Model extends RealmObject {
+    @PrimaryKey
+
     String strTeam;
-    String strAlternate;
     String strLeague;
-    String strStadium;
     String strTeamBadge;
     String strDescriptionEN;
-    String strStadiumLocation;
-    int id;
+    int idTeam;
 
-    public Integer getId() {
-        return id;
+    public int getidTeam() {
+        return idTeam;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setidTeam(int id) {
+        this.idTeam = id;
     }
 
-    public String getTeam_name() {
+    public String getstrTeam() {
         return strTeam;
     }
 
-    public void setTeam_name(String strTeam) {
+    public void setstrTeam(String strTeam) {
         this.strTeam = strTeam;
     }
 
-    public String getAlternate_name() {
-        return strAlternate;
-    }
-
-    public void setAlternate_name(String strAlternate) {
-        this.strAlternate = strAlternate;
-    }
-
-    public String getLeague() {
+    public String getstrLeague() {
         return strLeague;
     }
 
-    public void setLeague(String strLeague) {
+    public void setstrLeague(String strLeague) {
         this.strLeague = strLeague;
     }
 
-    public String getStadium() {
-        return strStadium;
-    }
-
-    public void setStadium(String strStadium) {
-        this.strStadium = strStadium;
-    }
-
-    public String getBadge_path() {
+    public String getstrTeamBadge() {
         return strTeamBadge;
     }
 
-    public void setBadge_path(String strTeamBadge) {
+    public void setstrTeamBadge(String strTeamBadge) {
         this.strTeamBadge = strTeamBadge;
     }
 
-    public String getDescription() {
+
+    public String getstrDescriptionEN() {
         return strDescriptionEN;
     }
 
-    public void setDescription(String strDescriptionEN) {
-        this.strDescriptionEN = strDescriptionEN;
-    }
-
-    public String getStadium_location() {
-        return strStadiumLocation;
-    }
-
-    public void setStadium_location(String strStadiumLocation) {
-        this.strStadiumLocation = strStadiumLocation;
+    public void setstrDescriptionEN(String  strDescriptionEN) {
+        this.strDescriptionEN =  strDescriptionEN;
     }
 }

@@ -5,50 +5,51 @@ import io.realm.annotations.PrimaryKey;
 
 public class ModelMovieRealm extends RealmObject {
     @PrimaryKey
-    private Integer id;
-    private String judul;
-    private String desc;
-    private String releaseDate;
-    private String path;
+    int idTeam;
+    String strTeam;
+    String strLeague;
+    String strTeamBadge;
+    String strDescriptionEN;
 
-    public Integer getId() {
-        return id;
+
+    public int getidTeam() {
+        return idTeam;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setidTeam(int id) {
+        this.idTeam = id;
     }
 
-    public String getJudul() {
-        return judul;
+    public String getstrTeam() {
+        return strTeam;
     }
 
-    public void setJudul(String judul) {
-        this.judul = judul;
+    public void setstrTeam(String strTeam) {
+        this.strTeam =strTeam;
     }
 
-    public String getDesc() {
-        return desc;
+    public String getstrLeague() {
+        return strLeague;
     }
 
-    public void setDesc(String desc) {
-        this.desc = desc;
+    public void setstrLeague(String strLeague) {
+        this.strLeague = strLeague;
     }
 
-    public String getReleaseDate() {
-        return releaseDate;
+    public String getstrTeamBadge() {
+        return strTeamBadge;
     }
 
-    public void setReleaseDate(String releaseDate) {
-        this.releaseDate = releaseDate;
+    public void setstrTeamBadge(String strTeamBadge) {
+        this.strTeamBadge = strTeamBadge;
     }
 
-    public String getPath() {
-        return path;
+
+    public String getstrDescriptionEN() {
+        return strDescriptionEN;
     }
 
-    public void setPath(String path) {
-        this.path = path;
+    public void setstrDescriptionEN(String  strDescriptionEN) {
+        this.strDescriptionEN =  strDescriptionEN;
     }
 }
-

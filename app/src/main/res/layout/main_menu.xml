@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".MainMenu">
+    tools:context=".MainActivity">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/menu1"
@@ -17,10 +17,6 @@
         app:cardElevation="30dp"
         app:contentPadding="10dp">
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -30,23 +26,19 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
+                <ImageView
+                    android:background="@mipmap/liga1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
 
                 <TextView
                     android:id="@+id/articleName"
                     style="@android:style/TextAppearance.Medium"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentLeft="true"
-                    android:elevation="3dp"
-                    android:ellipsize="marquee"
-                    android:focusable="true"
-                    android:marqueeRepeatLimit="marquee_forever"
                     android:padding="10dp"
-                    android:singleLine="true"
-                    android:text="Teams"
-                    android:textColor="#900d0d"
-                    android:textSize="24sp"
+                    android:text="Menu 01"
+                    android:textColor="#131313"
                     tools:targetApi="lollipop" />
 
             </RelativeLayout>
@@ -64,11 +56,6 @@
         app:cardElevation="30dp"
         app:contentPadding="10dp">
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp" />
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -78,23 +65,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
+                <ImageView
+                    android:background="@mipmap/liga2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
 
                 <TextView
-
                     style="@android:style/TextAppearance.Medium"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentLeft="true"
-                    android:elevation="3dp"
-                    android:ellipsize="marquee"
-                    android:focusable="true"
-                    android:marqueeRepeatLimit="marquee_forever"
                     android:padding="10dp"
-                    android:singleLine="true"
-                    android:text="My Favorite"
-                    android:textColor="#900d0d"
-                    android:textSize="24sp"
+                    android:text="Menu 02"
+                    android:textColor="#000000"
                     tools:targetApi="lollipop" />
 
             </RelativeLayout>

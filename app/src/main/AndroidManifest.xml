@@ -16,11 +16,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         android:usesCleartextTraffic="true">
-        <activity android:name=".DetailFavourite"></activity>
-        <activity android:name=".DetailMovie" />
+        <activity android:name=".DetailFavorite"></activity>
         <activity android:name=".ListData" />
-        <activity android:name=".ListDataFavourite" />
-        <activity android:name=".ControlClass">
+        <activity android:name=".DetailLiga" />
+        <activity android:name=".ListDataFavorite" />
+        <activity android:name=".ControlClass"/>
+        <activity android:name=".SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -14,7 +14,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.androidnetworking.AndroidNetworking;
-import com.androidnetworking.common.ANRequest;
 import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
@@ -26,8 +25,6 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 public class ListData extends AppCompatActivity {
-
-
     TextView tvnodata;
     ProgressDialog dialog;
     RecyclerView recyclerView;
@@ -38,20 +35,22 @@ public class ListData extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_list_data);
+        setContentView(R.layout.list_data);
         recyclerView = (RecyclerView) findViewById(R.id.rvdata);
         dialog = new ProgressDialog(ListData.this);
         tvnodata = (TextView) findViewById(R.id.tvnodata);
         tvnodata.setVisibility(View.GONE);
         recyclerView.setVisibility(View.VISIBLE);
+        //addData();
         addDataOnline();
     }
 
+
     void addDataOnline(){
-        //Loading Screen
-        dialog.setMessage("Processing Data");
+        //kasih loading
+        dialog.setMessage("Sedang memproses data");
         dialog.show();
-        //Bacjground Process
+        // background process
         AndroidNetworking.get("https://www.thesportsdb.com/api/v1/json/1/search_all_teams.php?l=English%20Premier%20League")
                 .setTag("test")
                 .setPriority(Priority.LOW)
@@ -59,8 +58,9 @@ public class ListData extends AppCompatActivity {
                 .getAsJSONObject(new JSONObjectRequestListener() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        //Do Anything With Response
-                        Log.d("hasiljson","onResponse: " + response.toString());
+                        // do anything with response
+                        Log.d("hasiljson", "onResponse: " + response.toString());
+                        //jika sudah berhasil debugm lanjutkan code dibawah ini
                         DataArrayList = new ArrayList<>();
                         Model modelku;
                         try {
@@ -70,31 +70,27 @@ public class ListData extends AppCompatActivity {
                             for (int i = 0; i < jsonArray.length(); i++) {
                                 modelku = new Model();
                                 JSONObject jsonObject = jsonArray.getJSONObject(i);
-                                modelku.setTeam_name(jsonObject.getString("strTeam"));
-                                modelku.setAlternate_name(jsonObject.getString("strAlternate"));
-                                modelku.setLeague(jsonObject.getString("strLeague"));
-                                modelku.setStadium(jsonObject.getString("strStadium"));
-                                modelku.setBadge_path(jsonObject.getString("strTeamBadge"));
-                                modelku.setDescription(jsonObject.getString("strDescriptionEN"));
-                                modelku.setStadium_location(jsonObject.getString("strStadiumLocation"));
+                                modelku.setidTeam(jsonObject.getInt("idTeam"));
+                                modelku.setstrTeam(jsonObject.getString("strTeam"));
+                                modelku.setstrLeague(jsonObject.getString("strLeague"));
+                                modelku.setstrDescriptionEN(jsonObject.getString("strDescriptionEN"));
+                                modelku.setstrTeamBadge(jsonObject.getString("strTeamBadge"));
                                 DataArrayList.add(modelku);
                             }
-                            //Handle Click
+                            //untuk handle click
                             adapter = new DataAdapter(DataArrayList, new DataAdapter.Callback() {
                                 @Override
                                 public void onClick(int position) {
                                     Model team = DataArrayList.get(position);
-                                    Intent intent = new Intent(getApplicationContext(), DetailMovie.class);
-                                    intent.putExtra("id",team.id);
-                                    intent.putExtra("team",team.strTeam);
-                                    intent.putExtra("alternate",team.strAlternate);
-                                    intent.putExtra("league",team.strLeague);
-                                    intent.putExtra("stadium",team.strStadium);
-                                    intent.putExtra("badge",team.strTeamBadge);
-                                    intent.putExtra("description",team.strDescriptionEN);
-                                    intent.putExtra("location",team.strStadiumLocation);
+                                    Intent intent = new Intent(getApplicationContext(), DetailLiga.class);
+                                    Log.d("teams",team.getstrTeam());
+                                    intent.putExtra("id",team.idTeam);
+                                    intent.putExtra("Team",team.getstrTeam());
+                                    intent.putExtra("liga",team.getstrLeague());
+                                    intent.putExtra("deskripsi",team.strDescriptionEN);
+                                    intent.putExtra("poster",team.strTeamBadge);
                                     startActivity(intent);
-                                    Toast.makeText(ListData.this, ""+position, Toast.LENGTH_SHORT).show();
+                                    //Toast.makeText(ListData.this, ""+position, Toast.LENGTH_SHORT).show();
                                 }
 
                                 @Override
@@ -118,13 +114,14 @@ public class ListData extends AppCompatActivity {
                     }
 
                     @Override
-                    public void onError(ANError anError) {
-                        //Handle Error
-                        Log.d("errorku","onError errorCode : " + anError.getErrorCode());
-                        Log.d("errorku","onError errorBody : " + anError.getErrorBody());
-                        Log.d("errorku","onError errorDetail : " + anError.getErrorDetail());
+                    public void onError(ANError error) {
+                        // handle error
+                        Log.d("errorku", "onError errorCode : " + error.getErrorCode());
+                        Log.d("errorku", "onError errorBody : " + error.getErrorBody());
+                        Log.d("errorku", "onError errorDetail : " + error.getErrorDetail());
                     }
                 });
     }
 }
+
 

@@ -16,22 +16,22 @@ public class RealmHelper {
     }
 
     // untuk menyimpan data
-    public void save(final ModelMovieRealm movieModel){
+    public void save(final ModelMovieRealm timModel) {
         realm.executeTransaction(new Realm.Transaction() {
             @Override
             public void execute(Realm realm) {
-                if (realm != null){
+                if (realm != null) {
                     Log.e("Created", "Database was created");
-                    Number currentIdNum = realm.where(ModelMovieRealm.class).max("id");
+                    Number currentIdNum = realm.where(ModelMovieRealm.class).max("idTeam");
                     int nextId;
-                    if (currentIdNum == null){
+                    if (currentIdNum==null) {
                         nextId = 1;
-                    }else {
-                        nextId = currentIdNum.intValue() + 1;
+                    } else {
+                        nextId = currentIdNum.intValue()+1;
                     }
-                    movieModel.setId(nextId);
-                    ModelMovieRealm model = realm.copyToRealm(movieModel);
-                }else{
+                    timModel.setidTeam(nextId);
+                    ModelMovieRealm modelRealm = realm.copyToRealm(timModel);
+                } else {
                     Log.e("ppppp", "execute: Database not Exist");
                 }
             }
@@ -39,13 +39,13 @@ public class RealmHelper {
     }
 
     // untuk memanggil semua data
-    public List<ModelMovieRealm> getAllMovie(){
+    public List<ModelMovieRealm> getAllTim() {
         RealmResults<ModelMovieRealm> results = realm.where(ModelMovieRealm.class).findAll();
         return results;
     }
 
-    public void delete(Integer id){
-        final RealmResults<ModelMovieRealm> model = realm.where(ModelMovieRealm.class).equalTo("id", id).findAll();
+    public void delete (Integer idTeam){
+        final RealmResults<ModelMovieRealm> model = realm.where(ModelMovieRealm.class).equalTo("idTeam", idTeam).findAll();
         realm.executeTransaction(new Realm.Transaction() {
             @Override
             public void execute(Realm realm) {
@@ -53,6 +53,5 @@ public class RealmHelper {
             }
         });
     }
-
 }
 
